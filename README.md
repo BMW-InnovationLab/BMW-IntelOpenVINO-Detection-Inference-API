@@ -151,3 +151,5 @@ The "models" folder structure should be similar to as shown below:
 ## Acknowledgements
 
 [robotron.de](https://www.robotron.de/)
+[OpenVINO Toolkit](https://github.com/openvinotoolkit)
+[intel.com](https://intel.com)
