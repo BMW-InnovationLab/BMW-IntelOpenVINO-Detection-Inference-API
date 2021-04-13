@@ -39,8 +39,7 @@ class InferenceEngine(AbstractInferenceEngine):
 		self.ie = IECore()
 
 		# Load the model
-		models_path = Path(self.model_path)
-		model_xml = next(models_path.glob("*.xml"))
+		model_xml = next(Path(self.model_path).glob("*.xml"))
 		model_bin = model_xml.parent / (model_xml.stem + ".bin")
 		self.net = self.ie.read_network(model=str(model_xml),
 										weights=str(model_bin))

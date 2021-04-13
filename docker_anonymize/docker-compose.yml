@@ -1,0 +1,32 @@
+version: '3'
+services:
+
+  openvino_api:
+    build: 
+      context: ..
+      dockerfile: Dockerfile
+    image: openvino.api:latest
+    networks:
+      - anonym-net
+    ports:
+      - "8080:80"
+    volumes:
+      - "../models:/models"
+      - "../models_hash:/models_hash"
+      
+  anonymization_api:
+    image: anonymize.api:latest
+    build: 
+      context: ../../Anonymization_API-master
+      dockerfile: docker/dockerfile
+    networks:
+      - anonym-net
+    ports:
+      - "8070:4343"
+    volumes:
+      - "../../Anonymization_API-master/jsonFiles:/jsonFiles"
+    depends_on:
+      - openvino_api
+
+networks: 
+  anonym-net:

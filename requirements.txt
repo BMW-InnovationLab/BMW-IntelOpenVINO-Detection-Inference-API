@@ -10,4 +10,3 @@ requests
 uvicorn==0.11.5
 gunicorn==20.0.4
 jsonschema
-jsonschema
