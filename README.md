@@ -1,10 +1,8 @@
-# OpenVINO Inference API 
+﻿# OpenVINO Inference API 
 
 This is a repository for an object detection inference API using the OpenVINO. It's supported on both Windows and Linux Operating systems.
 
-Models in Intermediate Representation(IR) format, converted using the [Intel&reg; OpenVINO&trade; toolkit v2021.1](https://docs.openvinotoolkit.org/latest/index.html), can be deployed in this API. Currently, OpenVINO supports conversion for Models trained in several Machine Learning frameworks including Caffe, Tensorflow etc. Please refer to [the OpenVINO documentation](https://docs.openvinotoolkit.org/2021.1/openvino_docs_MO_DG_prepare_model_convert_model_Converting_Model.html) for further details on converting your Model.
-
-![load model](./files/load_models.gif)
+Models in Intermediate Representation(IR) format, converted using the [Intel&reg; OpenVINO&trade; toolkit v2021.1](https://docs.openvinotoolkit.org/2021.1/index.html), can be deployed in this API. Currently, OpenVINO supports conversion for Models trained in several Machine Learning frameworks including Caffe, Tensorflow etc. Please refer to [the OpenVINO documentation](https://docs.openvinotoolkit.org/2021.1/openvino_docs_MO_DG_prepare_model_convert_model_Converting_Model.html) for further details on converting your Model.
 
 ## Prerequisites
 
@@ -99,6 +97,24 @@ Performs inference on an image using the specified model, draws bounding boxes o
 
 ![predict image](./files/predict_image.gif)
 
+#### /models/{model_name}/config (GET)
+
+Returns the model's configuration
+
+![config image](./files/config_image.gif)
+
+#### /models (GET)
+
+Lists all the available models
+
+#### /models/{model_name}/labels (GET)
+
+Returns all the object labels of the model as a list
+
+#### /models/{model_name}/predict (POST)
+
+Performs inference on a given image using the model and returns the bounding-boxes of the objects as JSON.
+
 **P.S: If you are using custom endpoints like /detect, /predict_image, you should always use the /load endpoint first and then use /detect**
 
 ## Model structure
@@ -150,6 +166,24 @@ The "models" folder structure should be similar to as shown below:
   │  │──classes.txt
   │  │──config.json
 ```
+## Using with Anonymization Api
+
+In this section, docker-compose will build and run the OpenVINO Inference Api alongside the Anonymization Api.
+
+To build and run both the APIs together, clone the Anonymization API repository to your machine. Replace the "/jsonFiles/url_configuration.json" with the file in the "/docker_anonymize" directory of this repo.
+
+Two services are configured in the "docker-compose.yml" file in the "/docker_anonymize" directory: the OpenVINO Inference API and the Anonymization API. 
+
+You can modify the build context to specify the base directory of anonymization api (ensure the correct path is also given for the mounted volumes).You can also modify the host ports you wish to use for the APIs.
+
+Now, run the following command in the "/docker_anonymize" directory of this repo:
+
+```sh
+docker-compose up
+```
+
+In the terminal, you should now see all the APIs running together.
+
 ## Acknowledgements
 
 [OpenVINO Toolkit](https://github.com/openvinotoolkit)
