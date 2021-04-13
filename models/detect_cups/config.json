@@ -1,0 +1,9 @@
+{
+	"predictions": 15,
+	"confidence": 10,
+	"inference_engine_name": "openvino_detection",
+	"framework": "openvino",
+	"type": "detection",
+	"network": "fasterrcnn",
+	"number_of_classes": 2
+}

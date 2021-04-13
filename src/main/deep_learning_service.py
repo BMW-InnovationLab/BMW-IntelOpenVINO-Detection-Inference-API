@@ -119,3 +119,24 @@ class DeepLearningService:
         :return: Model name
         """
         return model_name in self.models_dict.keys()
+
+    def get_labels(self, model_name):
+        """
+        Loads the model in case it's not loaded.
+        Returns the model's labels.
+        :param model_name: Model name
+        :return: List of model labels
+        """
+        if not self.model_loaded(model_name):
+            self.load_model(model_name)
+        return self.models_dict[model_name].classes
+
+    def get_config(self, model_name):
+        """
+        Returns the model's configuration.
+        :param model_name: Model name
+        :return: List of model's configuration
+        """
+        if not self.model_loaded(model_name):
+            self.load_model(model_name)
+        return self.models_dict[model_name].configuration
