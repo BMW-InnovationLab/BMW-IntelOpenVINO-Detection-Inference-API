@@ -10,6 +10,7 @@ Models in Intermediate Representation(IR) format, converted using [Intel&reg; Op
   - Ubuntu 18.04
   - Windows 10 pro/enterprise
 - Docker
+- [git-lfs](https://git-lfs.github.com/)
 
 ### Check for prerequisites
 
