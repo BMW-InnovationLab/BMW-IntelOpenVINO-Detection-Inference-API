@@ -107,7 +107,8 @@ class InferenceEngine(AbstractInferenceEngine):
 			input_dict[self.input_info_name] = np.array([[w, h, c]])
 		result = self.exec_net.infer(inputs=input_dict)
 
-		output_key = "detection_output"
+		# output_key = "detection_output"
+		output_key = self.output_name
 		output = result[output_key]
 		output = np.squeeze(output, (0, 1))
 
