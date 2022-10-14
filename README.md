@@ -4,6 +4,8 @@ This is a repository for an object detection inference API using the OpenVINO. I
 
 Models in Intermediate Representation(IR) format, converted using [Intel&reg; OpenVINO&trade; toolkit v2021.1](https://docs.openvino.ai/2021.1/index.html) or using [Intel&reg; OpenVINO&trade; toolkit v2021.4](https://docs.openvino.ai/2021.4/index.html), can be deployed in this API. Currently, OpenVINO supports conversion for Models trained in several Machine Learning frameworks including Caffe, Tensorflow etc. Please refer to [the OpenVINO documentation](https://docs.openvinotoolkit.org/2021.1/openvino_docs_MO_DG_prepare_model_convert_model_Converting_Model.html) for further details on converting your Model.
 
+**Note: To be able to use the sample inference model provided with this repository make sure to have **`git lfs`** installed and initialized then use** `git clone` **and avoid downloading the repository as ZIP because it will not download the acutual model stored on** `git lfs` **but just the pointer instead**
+
 ## Prerequisites
 
 - OS:
