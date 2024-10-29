@@ -1,12 +1,12 @@
-aiofiles
-celery
-fastapi
-numpy
-opencv-python>=4.0.0.0
-python-multipart
-Pillow
-python-socketio
-requests
+aiofiles==0.8.0
+celery==5.1.2  # Updated to a valid version
+fastapi==0.83.0
+numpy== 1.19.5
+opencv-python>=4.10.0.84
+python-multipart==0.0.5
+Pillow==8.4.0
+python-socketio==5.11.0
+requests==2.27.1
 uvicorn==0.11.5
 gunicorn==20.0.4
-jsonschema
+jsonschema==4.0.0
