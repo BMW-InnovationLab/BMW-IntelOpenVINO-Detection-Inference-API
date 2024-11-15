@@ -1,32 +1,44 @@
-FROM tiangolo/uvicorn-gunicorn:python3.6 AS uvicorn-builder
+FROM tiangolo/uvicorn-gunicorn:python3.9 AS uvicorn-builder
 FROM openvino/ubuntu18_runtime:2021.4
 
 USER root
 
-# Copy scripts form uvicorn-builder (this is the only purpose of the uvicorn-builder build stage)
+# Log start of copying scripts
 COPY --from=uvicorn-builder /start.sh /start.sh
 COPY --from=uvicorn-builder /start-reload.sh /start-reload.sh
 
 # Update pip
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 RUN python3 -m pip install --upgrade pip
 
-# Install dependencies
+# Install build tools and OpenCV dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    ninja-build \
+    pkg-config \
+    libgl1-mesa-glx \
+    libglib2.0-0
+
+# Log the installation of Python dependencies
 COPY requirements.txt requirements.txt
 RUN python3 -m pip install -U -r requirements.txt
 
-# Configure webserver settings
-ENV HOST 0.0.0.0
-ENV PORT 80
-ENV WORKERS_PER_CORE 1
-ENV WEB_CONCURRENCY 1
-ENV LOG_LEVEL debug
+ENV HOST=0.0.0.0
+ENV PORT=80
+ENV WORKERS_PER_CORE=1
+ENV WEB_CONCURRENCY=1
+ENV LOG_LEVEL=debug
+ENV ACCESS_LOG=True
+ENV ERROR_LOG=True
 
 EXPOSE 80
 
+# Log the copying of application files
 COPY src/main /app
 WORKDIR /app
 
-# Setup OpenVINO environment vars before starting
+# Setup OpenVINO and start the app
 CMD source /opt/intel/openvino/bin/setupvars.sh && \
-    /start.sh
+    echo "OpenVINO environment setup completed." && \
+    /start.sh --log-level debug --access-log
